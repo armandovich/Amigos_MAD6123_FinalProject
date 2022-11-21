@@ -59,4 +59,15 @@ router.patch('/project/:id', async (req, res) => {
     }
 })
 
+router.delete('/project/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await projectModel.findByIdAndDelete(id)
+        res.send(`Document with ${data.name} has been deleted..`)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
 export default router
