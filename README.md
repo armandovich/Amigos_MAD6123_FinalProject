@@ -2,6 +2,6 @@
 MAD 6123 final project back-end and front-end, using node and react native.
 
 ## Tech Used
-**Server:** Node, Express.
+**Server:** Node, Express, MongoDB.
 
 **Client:** React Native, Redux.
