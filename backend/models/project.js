@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const dataSchema = new mongoose.Schema({
     name: {
@@ -25,10 +25,10 @@ const dataSchema = new mongoose.Schema({
         require: true,
         type: Date
     },
-    start_date: {
+    end_date: {
         require: true,
         type: Date
     }
 })
 
-module.exports = mongoose.model('projects', dataSchema)
+export default mongoose.model('projects', dataSchema)
