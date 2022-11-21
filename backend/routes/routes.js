@@ -36,4 +36,27 @@ router.post('/project', (req, res) => {
     }
 })
 
+router.patch('/project/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const tempStart = new Date(req.body.start_date);
+        const tempEnd = new Date(req.body.end_date);
+        
+        req.body.start_date = tempStart;
+        req.body.end_date = tempEnd;
+        
+        const updatedData = req.body;
+        const options = { new: true };
+
+        const result = await projectModel.findByIdAndUpdate(
+            id, updatedData, options
+        )
+
+        res.send(result)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
 export default router
