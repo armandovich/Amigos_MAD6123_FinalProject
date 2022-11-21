@@ -2,7 +2,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, StyleSheet, Text, TextInput } from 'react-native';
 
 export default function Login({navigation}) {
-    const goToRegister = (value) => {
+    const goToScreen = (value) => {
         navigation.navigate({ name: value });
     }
 
@@ -11,11 +11,13 @@ export default function Login({navigation}) {
         <Text  style={styles.headline}>LOGIN</Text>
         <TextInput style={styles.inputs} placeholder='Username'/>
         <TextInput style={styles.inputs} placeholder='Password'/>
-        <Pressable style={[styles.btn, styles.btnGreen]}  onPress={() => goToRegister('Home')} >
+
+        <Pressable style={[styles.btn, styles.btnGreen]}  onPress={() => goToScreen('Home')} >
             <Text style={styles.btnTxt}>Sign In</Text>
         </Pressable>
-        <Pressable style={[styles.btn, styles.btnBorder]}  onPress={() => goToRegister('Register')} >
-            <Text style={[styles.btnTxt, styles.greenTxt]}>Sign Up</Text>
+
+        <Pressable style={[styles.btn, styles.btnBorder]}  onPress={() => goToScreen('Register')} >
+            <Text style={[styles.btnTxt, styles.greenTxt]}>Register</Text>
         </Pressable>
       </SafeAreaView>
     );

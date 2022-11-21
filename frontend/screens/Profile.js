@@ -1,13 +1,14 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function Projects({navigation}) {
-    const goToRegister = () => {
-        navigation.navigate({ name: 'Projects' });
+    const goToPage = (value) => {
+        navigation.navigate({ name: value});
     }
 
     return (
       <View style={styles.container}>
         <Text  style={{color: '#fff'}}>PROFILE SCREEN</Text>
+        <Button onPress={() => {goToPage('Login')}} title='Logout'/>
       </View>
     );
 }
