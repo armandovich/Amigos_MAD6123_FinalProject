@@ -1,14 +1,13 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default function Login({navigation}) {
+export default function Projects({navigation}) {
     const goToRegister = () => {
-        navigation.navigate({ name: 'Login' });
+        navigation.navigate({ name: 'Profile' });
     }
 
     return (
       <View style={styles.container}>
-        <Text style={{color: '#fff'}}>REGISTER SCREEN</Text>
-        <Button onPress={goToRegister} title='GO TO LOGIN'/>
+        <Text  style={{color: '#fff'}}>PROJECTS SCREEN</Text>
       </View>
     );
 }

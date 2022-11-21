@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from './screens/Login.js';
 import RegisterScreen from './screens/Register.js';
+import BottomNav from './navigation/BottomNav.js';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function App() {
       <Stack.Navigator screenOptions={ { headerShown: false, headerStyle: { backgroundColor: '#000' }} }>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Home" component={BottomNav} />
       </Stack.Navigator>
 
       <StatusBar style="light" />
