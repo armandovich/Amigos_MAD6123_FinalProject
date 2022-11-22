@@ -33,7 +33,7 @@ export default function Projects({navigation}) {
     }
 
     const openProject = (index) => {
-        navigation.navigate('ProjectManager', { edit: false })
+        navigation.navigate('Task', { edit: false })
     }
 
     const editProject = (index) => {
