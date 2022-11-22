@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Projects from "../screens/Projects.js";
+import Projects from "./ProjectNav.js";
 import Profile from '../screens/Profile.js'
 
 const projectsRout = "Projects";

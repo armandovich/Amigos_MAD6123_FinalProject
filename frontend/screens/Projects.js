@@ -33,11 +33,11 @@ export default function Projects({navigation}) {
     }
 
     const openProject = (index) => {
-
+        navigation.navigate('ProjectManager', { edit: false })
     }
 
     const editProject = (index) => {
-        
+        navigation.navigate('ProjectManager', { edit: true })
     }
 
     const formatDate = (value) => {
