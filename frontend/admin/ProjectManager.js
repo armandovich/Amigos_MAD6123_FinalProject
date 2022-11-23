@@ -95,12 +95,12 @@ export default function ProjectManager({navigation, route}) {
 
         {ediMode ? 
           <>
-            <View style={general.flexRow}>
+            <View style={[general.flexRow, {marginBottom: 15 }]}>
               <Text style={general.whiteTxt}>Task Number: </Text>
               <Text style={[general.whiteTxt, general.boldTxt, general.greenTxt]}>{tasks}</Text>
             </View>
 
-            <View style={general.flexRow}>
+            <View style={[general.flexRow, {marginBottom: 15 }]}>
               <Text style={general.whiteTxt}>Total Cost: </Text>
               <Text style={[general.whiteTxt, general.boldTxt, general.greenTxt]}>{cost}</Text>
             </View>

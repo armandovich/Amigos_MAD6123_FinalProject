@@ -82,6 +82,8 @@ export default StyleSheet.create({
     },
     flexRow: {
         flexDirection: 'row',
-        marginBottom: 15
+    },
+    flexEvenSpace: {
+        justifyContent: 'space-between'
     }
 });

@@ -22,6 +22,25 @@ export default StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 5
     },
+    cardBar: {
+        width: '100%',
+        height: 10,
+        borderRadius: 5,
+        overflow: 'hidden',
+        backgroundColor: '#fff',
+        marginTop: 5,
+        borderWidth: 1,
+        borderColor: '#fff',
+        marginTop: 10,
+        marginBottom: 5
+    },
+    cardProgress: {
+        backgroundColor: '#84B026',
+        height: '100%',
+        position: 'absolute',
+        left: 0,
+        top: 0
+    },
     edit: {
         width: 50,
         height: 50,

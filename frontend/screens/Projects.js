@@ -13,7 +13,7 @@ const dummyData = [
         description: "New description...",
         status: "Ongoing",
         task_number: 5,
-        task_complete: 2,
+        task_complete: 4,
         total_cost: 0,
         start_date: "2022-01-20T00:00:00.000Z",
         end_date: "2022-02-01T00:00:00.000Z",
@@ -24,7 +24,7 @@ const dummyData = [
         description: "New description...",
         status: "Ongoing",
         task_number: 0,
-        task_complete: 2,
+        task_complete: 0,
         total_cost: 0,
         start_date: "2022-01-20T00:00:00.000Z",
         end_date: "2022-02-01T00:00:00.000Z",
@@ -66,17 +66,29 @@ export default function Projects({navigation}) {
                         <Text style={[projectS.cardName, general.greenTxt]}>{item.name}</Text>
 
                         <View style={projectS.cardTask}>
-                            <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number} </Text> 
-                            { item.task_number < 2 
-                            ? <Text style={general.whiteTxt}>Task</Text>
-                            : <Text style={general.whiteTxt}>Tasks</Text>
-                            }
-                        </View>
-                        
-                        <View style={projectS.cardTask}>
                             <Text style={general.whiteTxt}>Status: </Text>
                             <Text style={[general.boldTxt, general.greenTxt]}>{item.status} </Text> 
                         </View>
+                        
+                        <View style={projectS.cardBar}>
+                            <View style={[projectS.cardProgress, {width: `${(item.task_complete / item.task_number) * 100}%`}]}></View>
+                        </View>
+
+                        <View style={[general.flexRow, general.flexEvenSpace]}>
+                            <View style={projectS.cardTask}>
+                                <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number} </Text> 
+                                { item.task_number < 2 
+                                ? <Text style={general.whiteTxt}>Task</Text>
+                                : <Text style={general.whiteTxt}>Tasks</Text>
+                                }
+                            </View>
+
+                            <View style={projectS.cardTask}>
+                                <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number - item.task_complete} </Text> 
+                                <Text style={general.whiteTxt}>Left</Text>
+                            </View>
+                        </View>
+
 
                         <View style={projectS.cardTask}>
                             <Text style={general.whiteTxt}>Due Date: </Text>
