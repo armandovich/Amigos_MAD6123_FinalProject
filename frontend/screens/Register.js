@@ -1,5 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text, TextInput, Pressable, ScrollView } from 'react-native';
+import { Text, TextInput, Pressable, ScrollView } from 'react-native';
+import general from '../styles/General.js';
 
 export default function Login({navigation}) {
     const goToScreen = (value) => {
@@ -7,74 +8,23 @@ export default function Login({navigation}) {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scroll}>
-                <Text  style={styles.headline}>REGISTER</Text>
-                <TextInput style={styles.inputs} placeholder='First Name'/>
-                <TextInput style={styles.inputs} placeholder='Last Name'/>
-                <TextInput style={styles.inputs} placeholder='Job Position'/>
-                <TextInput style={styles.inputs} placeholder='Email'/>
-                <TextInput style={styles.inputs} placeholder='Password'/>
-                <TextInput style={styles.inputs} placeholder='Confirm Password'/>
+        <SafeAreaView style={general.container}>
+            <ScrollView style={[general.fullW, general.paddingH]}>
+                <Text  style={general.headline}>Sign Up</Text>
+                <TextInput style={general.inputs} placeholder='First Name'/>
+                <TextInput style={general.inputs} placeholder='Last Name'/>
+                <TextInput style={general.inputs} placeholder='Job Position'/>
+                <TextInput style={general.inputs} placeholder='Email'/>
+                <TextInput style={general.inputs} placeholder='Password'/>
+                <TextInput style={general.inputs} placeholder='Confirm Password'/>
 
-                <Pressable style={[styles.btn, styles.btnGreen]}>
-                    <Text style={styles.btnTxt}>Sign Up</Text>
+                <Pressable style={[general.btn, general.btnGreen]}>
+                    <Text style={general.btnTxt}>Register</Text>
                 </Pressable>
-                <Pressable style={[styles.btn, styles.btnBorder]}  onPress={() => goToScreen('Login')} >
-                    <Text style={[styles.btnTxt, styles.greenTxt]}>Login</Text>
+                <Pressable style={[general.btn, general.btnBorder]}  onPress={() => goToScreen('Login')} >
+                    <Text style={[general.btnTxt, general.greenTxt]}>Sign In</Text>
                 </Pressable>
             </ScrollView>
       </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-      },
-      scroll: {
-        width: '100%',
-        paddingHorizontal: 15
-      },
-      headline: {
-          fontWeight: 'bold',
-          fontSize: 25,
-          color: '#fff',
-          paddingVertical: 15
-      },
-      inputs: {
-          backgroundColor: '#fff',
-          width: '100%',
-          paddingHorizontal: 15,
-          paddingVertical: 10,
-          borderRadius: 8,
-          marginBottom: 15
-      },
-      btn: {
-          width: '100%',
-          paddingHorizontal: 15,
-          marginBottom: 15,
-          borderRadius: 8,
-          paddingVertical: 15,
-          paddingHorizontal: 15
-      },
-      btnTxt: {
-          color: '#fff',
-          textAlign: 'center',
-          fontWeight: 'bold'
-      },
-      btnGreen: {
-          backgroundColor: '#84B026'
-      },
-      btnBorder: {
-          borderWidth: 2,
-          borderColor: '#84B026'
-      },
-      greenTxt: {
-          color: '#84B026',
-      }
-  });
-  

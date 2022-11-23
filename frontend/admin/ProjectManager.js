@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text, Pressable, TextInput, ScrollView, View } from 'react-native';
+import { Text, Pressable, TextInput, ScrollView, View } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import general from '../styles/General.js';
 
 export default function ProjectManager({navigation, route}) {
   // Hold params data from route
@@ -66,141 +67,58 @@ export default function ProjectManager({navigation, route}) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Pressable onPress={goBack} style={styles.head}>
-        <Ionicons name="arrow-back" size={24} color="#fff" />
+    <SafeAreaView style={general.container}>
+      <Pressable onPress={goBack} style={general.returnBtn}>
+        <Ionicons name="arrow-back" size={24}  style={{marginRight: 15}} color="#fff" />
         {ediMode ? 
-          <Text style={styles.headline}>PROJECT EDITING</Text>
+          <Text style={general.headline}>Project Editing</Text>
         :
-        <Text style={styles.headline}>PROJECT CREATION</Text>
+        <Text style={general.headline}>Project</Text>
         }
       </Pressable>
 
-      <ScrollView style={styles.scroll}>
-        <TextInput style={styles.inputs} value={name} placeholder='Name'/>
+      <ScrollView style={[general.fullW, general.paddingH]}>
+        <TextInput style={general.inputs} value={name} placeholder='Name'/>
 
-        <TextInput style={styles.inputs} value={desc} placeholder='Description'/>
+        <TextInput style={general.inputs} value={desc} placeholder='Description'/>
 
-        <Text style={styles.whiteTxt}>Start Date: </Text>
-        <Pressable onPress={() => showDatepicker(true)} style={styles.datePicker}>
-          <Text style={styles.datePickerTxt}>{starDate}</Text>
+        <Text style={general.whiteTxt}>Start Date: </Text>
+        <Pressable onPress={() => showDatepicker(true)} style={general.datePicker}>
+          <Text style={general.datePickerTxt}>{starDate}</Text>
         </Pressable>
 
-        <Text style={styles.whiteTxt}>End Date: </Text>
-        <Pressable onPress={() => showDatepicker(false)} style={styles.datePicker}>
-          <Text style={styles.datePickerTxt}>{endDate}</Text>
+        <Text style={general.whiteTxt}>End Date: </Text>
+        <Pressable onPress={() => showDatepicker(false)} style={general.datePicker}>
+          <Text style={general.datePickerTxt}>{endDate}</Text>
         </Pressable>
 
 
         {ediMode ? 
           <>
-            <View style={styles.infoRow}>
-              <Text style={styles.whiteTxt}>Task Number: </Text>
-              <Text style={styles.whiteTxt}>{tasks}</Text>
+            <View style={general.flexRow}>
+              <Text style={general.whiteTxt}>Task Number: </Text>
+              <Text style={[general.whiteTxt, general.boldTxt, general.greenTxt]}>{tasks}</Text>
             </View>
 
-            <View style={styles.infoRow}>
-              <Text style={styles.whiteTxt}>Total Cost: </Text>
-              <Text style={styles.whiteTxt}>{cost}</Text>
+            <View style={general.flexRow}>
+              <Text style={general.whiteTxt}>Total Cost: </Text>
+              <Text style={[general.whiteTxt, general.boldTxt, general.greenTxt]}>{cost}</Text>
             </View>
 
-            <Pressable style={[styles.btn, styles.btnGreen]}>
-                <Text style={styles.btnTxt}>Update</Text>
+            <Pressable style={[general.btn, general.btnGreen]}>
+                <Text style={general.btnTxt}>Update</Text>
             </Pressable>
 
-            <Pressable style={[styles.btn, styles.btnRed]}  onPress={() => goToScreen('Login')} >
-                <Text style={[styles.btnTxt]}>Delete</Text>
+            <Pressable style={[general.btn, general.btnRed]}  onPress={() => goToScreen('Login')} >
+                <Text style={[general.btnTxt]}>Delete</Text>
             </Pressable>
           </>
         :
-          <Pressable style={[styles.btn, styles.btnGreen]}>
-            <Text style={styles.btnTxt}>Create</Text>
+          <Pressable style={[general.btn, general.btnGreen]}>
+            <Text style={general.btnTxt}>Create</Text>
           </Pressable>
         }
-
-        
-
       </ScrollView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#000',
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start',
-    },
-    scroll: {
-      width: '100%',
-      paddingHorizontal: 15
-    },
-    head: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 15,
-    },
-    headline: {
-      fontWeight: 'bold',
-      fontSize: 25,
-      paddingLeft: 15,
-      color: '#fff',
-      paddingVertical: 15,
-    },
-    inputs: {
-      backgroundColor: '#fff',
-      width: '100%',
-      paddingHorizontal: 15,
-      paddingVertical: 10,
-      borderRadius: 8,
-      marginBottom: 15
-    },
-    datePicker: {
-      backgroundColor: '#fff',
-      paddingHorizontal: 15,
-      paddingVertical: 10,
-      borderRadius: 8,
-      marginBottom: 15
-    },
-    datePickerTxt: {
-      color: '#959595',
-      paddingVertical: 5,
-    },
-    btn: {
-      width: '100%',
-      paddingHorizontal: 15,
-      marginBottom: 15,
-      borderRadius: 8,
-      paddingVertical: 15,
-      paddingHorizontal: 15
-  },
-  btnTxt: {
-      color: '#fff',
-      textAlign: 'center',
-      fontWeight: 'bold'
-    },
-    btnGreen: {
-        backgroundColor: '#84B026'
-    },
-    btnRed: {
-      backgroundColor: '#BF1700'
-    },
-    btnBorder: {
-        borderWidth: 2,
-        borderColor: '#84B026'
-    },
-    greenTxt: {
-        color: '#84B026',
-    },
-    infoRow: {
-      flexDirection: 'row',
-      marginBottom: 15
-    },
-    whiteTxt: {
-      color: '#fff',
-      fontSize: 15,
-      marginBottom: 5
-    }
-  });

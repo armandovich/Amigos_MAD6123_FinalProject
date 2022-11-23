@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
+import general from '../styles/General.js';
+import projectS from '../styles/ProjectList.js';
+
 const dummyData = [
     {
         _id: "637b85bdff01ac9ec51a3e32",
@@ -48,42 +51,42 @@ export default function Projects({navigation}) {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.headline}>PROJECTS</Text>
-             <FlatList style={styles.scroll} data={projectList} 
+        <SafeAreaView style={general.container}>
+            <Text style={[general.headline, general.paddingH]}>Projects</Text>
+             <FlatList style={[general.fullW, general.paddingH]} data={projectList} 
              ListHeaderComponent={
-                <Pressable onPress={createProject} style={styles.createBtn}>
-                    <Text style={styles.createTxt}>Add Project</Text>
-                    <Ionicons name="add-circle-outline" size={24} color="#84B026" />
+                <Pressable onPress={createProject} style={[general.btn, general.btnBorder]}>
+                    <Text style={[general.btnTxt, general.greenTxt]}>Add Project</Text>
+                    <Ionicons name="add-circle-outline" size={24} style={{marginLeft: 10}} color="#84B026" />
                 </Pressable>
              }
              renderItem={({ item, index }) => 
-                <View style={styles.card}>
-                    <View style={styles.cardPadding}>
-                        <Text style={[styles.cardName, styles.greenTxt]}>{item.name}</Text>
+                <View style={projectS.card}>
+                    <View style={projectS.cardPadding}>
+                        <Text style={[projectS.cardName, general.greenTxt]}>{item.name}</Text>
 
-                        <View style={styles.cardTask}>
-                            <Text style={[styles.boldTxt, styles.greenTxt]}>{item.task_number} </Text> 
+                        <View style={projectS.cardTask}>
+                            <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number} </Text> 
                             { item.task_number < 2 
-                            ? <Text style={styles.whiteTxt}>Task</Text>
-                            : <Text style={styles.whiteTxt}>Tasks</Text>
+                            ? <Text style={general.whiteTxt}>Task</Text>
+                            : <Text style={general.whiteTxt}>Tasks</Text>
                             }
                         </View>
                         
-                        <View style={styles.cardTask}>
-                            <Text style={styles.whiteTxt}>Status: </Text>
-                            <Text style={[styles.boldTxt, styles.greenTxt]}>{item.status} </Text> 
+                        <View style={projectS.cardTask}>
+                            <Text style={general.whiteTxt}>Status: </Text>
+                            <Text style={[general.boldTxt, general.greenTxt]}>{item.status} </Text> 
                         </View>
 
-                        <View style={styles.cardTask}>
-                            <Text style={styles.whiteTxt}>Due Date: </Text>
-                            <Text style={[styles.boldTxt, styles.greenTxt]}>{formatDate(item.end_date)} </Text> 
+                        <View style={projectS.cardTask}>
+                            <Text style={general.whiteTxt}>Due Date: </Text>
+                            <Text style={[general.boldTxt, general.greenTxt]}>{formatDate(item.end_date)} </Text> 
                         </View>
                     </View>
 
-                    <Pressable onPress={() => openProject(index) } style={styles.exit}></Pressable>
+                    <Pressable onPress={() => openProject(index) } style={projectS.exit}></Pressable>
 
-                    <Pressable onPress={() => editProject(index) } style={styles.edit}>
+                    <Pressable onPress={() => editProject(index) } style={projectS.edit}>
                         <FontAwesome name="edit" size={24} color="#84B026" />
                     </Pressable>
                 </View>
@@ -92,85 +95,3 @@ export default function Projects({navigation}) {
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-    },
-    createBtn: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 15,
-        marginBottom: 15,
-        borderColor: '#84B026',
-        borderWidth: 2,
-        borderRadius: 5
-    },
-    createTxt: {
-        color: '#84B026',
-        paddingRight: 10
-    },
-    edit: {
-        width: 50,
-        height: 50,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    exit: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-    },
-    scroll: {
-        width: '100%',
-        paddingHorizontal: 15
-    },
-    headline: {
-        fontWeight: 'bold',
-        fontSize: 25,
-        color: '#fff',
-        paddingVertical: 15,
-        paddingHorizontal: 15
-    },
-    card: {
-        width: '100%',
-        backgroundColor: '#3B3C40',
-        borderRadius: 5,
-        marginBottom: 15,
-        position: 'relative'
-    },
-    cardPadding: {
-        paddingHorizontal: 10,
-        paddingTop: 15,
-        paddingBottom: 24
-    },
-    cardName: {
-        fontSize: 20,
-        marginBottom: 5,
-        fontWeight: 'bold'
-    },
-    cardTask: {
-        flexDirection: 'row',
-        paddingTop: 5
-    },
-    boldTxt: {
-        fontWeight: 'bold'
-    },
-    whiteTxt: {
-        color: '#fff'
-    },
-    greenTxt: {
-        color: '#84B026'
-    }
-  });
-  

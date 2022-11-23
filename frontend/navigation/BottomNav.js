@@ -1,6 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Projects from "./ProjectNav.js";
