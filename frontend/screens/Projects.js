@@ -35,7 +35,7 @@ export default function Projects({navigation}) {
     const [projectList, setProjectList] = useState(dummyData);
 
     const openProject = (index) => {
-        navigation.navigate('Task', { index: index })
+        navigation.navigate('Task', {screen: 'TaskList', params: { project: projectList[index] } });
     }
 
     const editProject = (index) => {

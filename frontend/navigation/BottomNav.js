@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import general from '../styles/General.js';
 import Projects from "./ProjectNav.js";
 import Profile from '../screens/Profile.js'
 
@@ -14,7 +14,7 @@ export default function BottomNav() {
         <Tap.Navigator
         screenOptions={ ({route}) => ({ 
         headerShown: false,
-        tabBarStyle: { backgroundColor: '#000' },
+        tabBarStyle: general.bottomNav,
         tabBarActiveTintColor: '#84B026',
         tabBarInactiveTintColor: '#fff',
         tabBarIcon: ({ focused, color, size }) => {

@@ -69,7 +69,7 @@ export default function ProjectManager({navigation, route}) {
   return (
     <SafeAreaView style={general.container}>
       <Pressable onPress={goBack} style={general.returnBtn}>
-        <Ionicons name="arrow-back" size={24}  style={{marginRight: 15}} color="#fff" />
+        <Ionicons name="arrow-back" size={24}  style={{marginRight: 15}} color="#84B026" />
         {ediMode ? 
           <Text style={general.headline}>Project Editing</Text>
         :
@@ -106,7 +106,7 @@ export default function ProjectManager({navigation, route}) {
             </View>
 
             <Pressable style={[general.btn, general.btnGreen]}>
-                <Text style={general.btnTxt}>Update</Text>
+                <Text style={[general.btnTxt]}>Update</Text>
             </Pressable>
 
             <Pressable style={[general.btn, general.btnRed]}  onPress={() => goToScreen('Login')} >

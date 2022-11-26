@@ -16,7 +16,7 @@ export default StyleSheet.create({
     headline: {
         fontWeight: 'bold',
         fontSize: 25,
-        color: '#fff',
+        color: '#84B026',
         paddingVertical: 15
     },
     inputs: {
@@ -56,17 +56,20 @@ export default StyleSheet.create({
     boldTxt: {
         fontWeight: 'bold'
     },
+    blackTxt: {
+        color: '#000'
+    },
     greenTxt: {
-        color: '#84B026',
+        color: '#84B026'
     },
     whiteTxt: {
         color: '#fff'
     },
     returnBtn: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingHorizontal: 15,
+        paddingHorizontal: 15
     },
     datePicker: {
         backgroundColor: '#fff',
@@ -85,5 +88,25 @@ export default StyleSheet.create({
     },
     flexEvenSpace: {
         justifyContent: 'space-between'
+    },
+    bottomNav: { 
+        borderTopColor:  '#84B026',
+        height: 50,
+        paddingTop: 5,
+        backgroundColor: '#000' 
+    },
+    topNav: {
+        width: '100%',
+        justifyContent: 'flex-start'
+    },
+    menu: {
+        width: 50,
+        height: '100%',
+        right: 0,
+        top: 0,
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingRight: 15
     }
 });
