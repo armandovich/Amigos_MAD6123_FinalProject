@@ -1,8 +1,23 @@
 import express from 'express'
 import project from '../controllers/project.js'
+import user from '../controllers/user.js'
 
 const router = express.Router()
 
+//==========================
+// User Endpoints
+//==========================
+router.get('/user', (req, res) => {
+    user.get(req, res);
+})
+
+router.post('/user', (req, res) => {
+    user.post(req, res);
+})
+
+//==========================
+// Project Endpoints
+//==========================
 router.get('/project', (req, res) => {
     project.get(req, res);
 })

@@ -10,7 +10,7 @@ export default {
             res.status(500).json({message: error.message})
         }
     },
-    post : (req, res) => {
+    post : async (req, res) => {
         const tempStart = new Date(req.body.start_date);
         const tempEnd = new Date(req.body.end_date);
     
