@@ -20,7 +20,6 @@ export default function ProjectManager({navigation, route}) {
   const [cost, setCost] = useState(0);
   // Hold which date should be update with the date picker
   const [pickStartDate, setPickStartDate] = useState(false);
-
   const [date, setDate] = useState(new Date());
 
   const formatDate = (value) => {

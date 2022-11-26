@@ -203,15 +203,15 @@ export default function Tasks({navigation, route}) {
   }
 
   const createTask = () => {
-
+    navigation.navigate('TaskManager', { task: null, isEdit: false })
   }
 
   const editTask = (index) => {
-
+    navigation.navigate('TaskManager', { task: statusList[index], isEdit: true })
   }
 
   const openTask = (index) => {
-
+    navigation.navigate('TaskInfo', { task: statusList[index] })
   }
 
   const toggleMenu = () => {
