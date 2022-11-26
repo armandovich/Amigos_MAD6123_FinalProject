@@ -1,7 +1,15 @@
 import mongoose from 'mongoose'
 
 const dataSchema = new mongoose.Schema({
-    name: {
+    first_name: {
+        required: true,
+        type: String
+    },
+    last_name: {
+        required: true,
+        type: String
+    },
+    position: {
         required: true,
         type: String
     },
@@ -14,7 +22,7 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     admin: {
-        require: true,
+        require: false,
         type: Boolean
     }
 })

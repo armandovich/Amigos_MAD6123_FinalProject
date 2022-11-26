@@ -26,19 +26,21 @@ export default {
         }
     },
     post : async (req, res) => {
-        const hash = bcrypt.hashSync(req.body.password, salt);
+        const hash = await bcrypt.hashSync(req.body.password, salt);
 
         const data = new userModel({
-            name: req.body.name,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            position: req.body.position,
             email: req.body.email,
             password: hash,
             admin: false
         })
-    
+
         try {
             const user = await userModel.find( { email: req.body.email });
-
-            if (user) {
+            
+            if (user.length > 0) {
                 throw new Error('Email has been used.');
             } else {
                 const dataToSave = data.save();

@@ -17,6 +17,10 @@ const dataSchema = new mongoose.Schema({
         require: false,
         type: Number
     },
+    task_complete: {
+        require: false,
+        type: Number
+    },
     total_cost: {
         require: false,
         type: Number
@@ -28,7 +32,11 @@ const dataSchema = new mongoose.Schema({
     end_date: {
         require: true,
         type: Date
-    }
+    },
+    completed_date: {
+        require: false,
+        type: Date
+    },
 })
 
 export default mongoose.model('projects', dataSchema)
