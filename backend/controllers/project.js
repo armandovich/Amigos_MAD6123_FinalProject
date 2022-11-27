@@ -18,10 +18,12 @@ export default {
             name: req.body.name,
             description: req.body.description,
             status: req.body.status,
-            total_cost: req.body.total_cost,
-            task_number: req.body.task_number,
+            task_number: 0,
+            task_complete: 0,
+            total_cost: 0,
             start_date: tempStart,
-            end_date: tempEnd
+            end_date: tempEnd,
+            completed_date: null
         })
     
         try {
