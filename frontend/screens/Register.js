@@ -13,17 +13,53 @@ export default function Login({navigation}) {
         { label: 'Developer', value: 1 },
         { label: 'QA', value: 2 }
     ]);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
 
     const goToScreen = (value) => {
         navigation.navigate({ name: value });
     }
 
+    const handleSignUp = () => {
+        if(email == '' || password == '' || firstName == '' || lastName == '' || confirmPassword == '' || value == null){
+            alert("Please fill all the inputs!")
+        }else if(password != confirmPassword){
+            alert("Passwords are not the same!")
+        }else{
+            let pos = ""
+            for(let i=0;i<items.length;i++){
+                if(items[i].value == value){
+                    pos = items[i].label
+                    break
+                }
+            }
+            const userData = {
+                first_name: firstName,
+                last_name: lastName,
+                position: pos,
+                email: email,
+                password:password,
+            }
+            console.log(JSON.stringify(userData))
+            fetch('http://10.0.2.2:3000/api/user/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            }).then(res => res.json()).then(data => console.log(data));
+        }
+      }
+
     return (
         <SafeAreaView style={general.container}>
             <ScrollView style={[general.fullW, general.paddingH]}>
                 <Text  style={general.headline}>Sign Up</Text>
-                <TextInput style={general.inputs} placeholder='First Name'/>
-                <TextInput style={general.inputs} placeholder='Last Name'/>
+                <TextInput style={general.inputs} placeholder='First Name' onChangeText={text => setFirstName(text)}/>
+                <TextInput style={general.inputs} placeholder='Last Name' onChangeText={text => setLastName(text)}/>
 
                 <Text style={general.whiteTxt}>Job Position:</Text>
                 <DropDownPicker
@@ -36,11 +72,11 @@ export default function Login({navigation}) {
                 setValue={setValue}
                 setItems={setItems} />
 
-                <TextInput style={general.inputs} placeholder='Email'/>
-                <TextInput style={general.inputs} placeholder='Password'/>
-                <TextInput style={general.inputs} placeholder='Confirm Password'/>
+                <TextInput style={general.inputs} placeholder='Email' onChangeText={text => setEmail(text)}/>
+                <TextInput style={general.inputs} placeholder='Password' onChangeText={text => setPassword(text)}/>
+                <TextInput style={general.inputs} placeholder='Confirm Password' onChangeText={text => setConfirmPassword(text)}/>
 
-                <Pressable style={[general.btn, general.btnGreen]}>
+                <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleSignUp()}>
                     <Text style={general.btnTxt}>Register</Text>
                 </Pressable>
                 <Pressable style={[general.btn, general.btnBorder]}  onPress={() => goToScreen('Login')} >
