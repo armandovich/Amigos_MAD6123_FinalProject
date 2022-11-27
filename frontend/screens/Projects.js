@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Pressable, Text, View } from 'react-native';
 import general from '../styles/General.js';
 import projectS from '../styles/ProjectList.js';
+import { userLoggedIn } from './Login.js';
 
 const dummyData = [
     {
