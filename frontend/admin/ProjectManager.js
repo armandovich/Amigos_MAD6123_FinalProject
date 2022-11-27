@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Pressable, TextInput, ScrollView, View } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import general from '../styles/General.js';
+import fetchLink from "../helpers/fetchLink.js";
 
 export default function ProjectManager({navigation, route}) {
   // Hold params data from route
@@ -65,6 +66,32 @@ export default function ProjectManager({navigation, route}) {
     }
   }, []);
 
+  const handleCreate = () => {
+    if(name == '' || desc == '' || starDate == 'YYYY-MM-DD' || endDate == 'YYYY-MM-DD'){
+        alert("Please check the inputs!")
+    }else{
+        const projData = {
+            name: name,
+            description: desc,
+            status: "ongoing",
+            task_number: 0,
+            start_date:starDate,
+            end_date: endDate,
+            total_cost: 0
+        }
+        console.log(JSON.stringify(projData))
+        fetch(fetchLink + '/api/project/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'POST',
+        body: JSON.stringify(projData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        }).then(res => res.json()).then(data => console.log(data));
+        alert("Project was added Successfully!")
+        //navigation.replace("Login");
+    }
+  }
+
   return (
     <SafeAreaView style={general.container}>
       <Pressable onPress={goBack} style={general.returnBtn}>
@@ -77,9 +104,9 @@ export default function ProjectManager({navigation, route}) {
       </Pressable>
 
       <ScrollView style={[general.fullW, general.paddingH]}>
-        <TextInput style={general.inputs} value={name} placeholder='Name'/>
+        <TextInput style={general.inputs} value={name} placeholder='Name' onChangeText={text => setName(text)}/>
 
-        <TextInput style={general.inputs} value={desc} placeholder='Description'/>
+        <TextInput style={general.inputs} value={desc} placeholder='Description' onChangeText={text => setDesc(text)}/>
 
         <Text style={general.whiteTxt}>Start Date: </Text>
         <Pressable onPress={() => showDatepicker(true)} style={general.datePicker}>
@@ -113,7 +140,7 @@ export default function ProjectManager({navigation, route}) {
             </Pressable>
           </>
         :
-          <Pressable style={[general.btn, general.btnGreen]}>
+          <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleCreate()}>
             <Text style={general.btnTxt}>Create</Text>
           </Pressable>
         }
