@@ -116,6 +116,16 @@ export default function ProjectManager({navigation, route}) {
     }
   }
 
+  const handleDelete = () => {
+      let projID = project._id
+        fetch(fetchLink + '/api/project/'+projID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'DELETE',
+        }).then(res => res.json()).then(data => console.log(data));
+        alert("Project was deleted Successfully!")
+        navigation.pop()
+        navigation.replace("Project")
+  }
+
   return (
     <SafeAreaView style={general.container}>
       <Pressable onPress={goBack} style={general.returnBtn}>
@@ -159,7 +169,7 @@ export default function ProjectManager({navigation, route}) {
                 <Text style={[general.btnTxt]}>Update</Text>
             </Pressable>
 
-            <Pressable style={[general.btn, general.btnRed]}  onPress={() => goToScreen('Login')} >
+            <Pressable style={[general.btn, general.btnRed]}  onPress={() => handleDelete()} >
                 <Text style={[general.btnTxt]}>Delete</Text>
             </Pressable>
           </>
