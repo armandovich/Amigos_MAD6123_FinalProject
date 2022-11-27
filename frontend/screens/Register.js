@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, TextInput, Pressable, ScrollView } from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import general from '../styles/General.js';
+import fetchLink from '../helpers/fetchLink.js';
 
 export default function Login({navigation}) {
     // Dropdown variables
@@ -46,7 +47,7 @@ export default function Login({navigation}) {
                 password:password,
             }
             console.log(JSON.stringify(userData))
-            fetch('http://10.0.2.2:3000/api/user/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+            fetch(fetchLink + '/api/user/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
             method: 'POST',
             body: JSON.stringify(userData),
             headers: {

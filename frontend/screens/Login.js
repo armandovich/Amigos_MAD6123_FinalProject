@@ -2,6 +2,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, Text, TextInput } from 'react-native';
 import { useState } from "react";
 import general from '../styles/General.js';
+import fetchLink from '../helpers/fetchLink.js';
 
 let userLoggedIn;
 
@@ -22,7 +23,7 @@ function Login({navigation}) {
           password:password,
         }
 
-        fetch('http://10.0.2.2:3000/api/user/?email='+ userData.email + "&password=" + userData.password, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        fetch(fetchLink + '/api/user/?email='+ userData.email + "&password=" + userData.password, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
             method: 'GET',
             }).then(res => res.json()).then(data => {
               if(data.message == "User not found."){
