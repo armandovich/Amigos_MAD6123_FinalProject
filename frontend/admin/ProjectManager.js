@@ -73,11 +73,9 @@ export default function ProjectManager({navigation, route}) {
         const projData = {
             name: name,
             description: desc,
-            status: "ongoing",
-            task_number: 0,
+            status: "Ongoing",
             start_date:starDate,
             end_date: endDate,
-            total_cost: 0
         }
         console.log(JSON.stringify(projData))
         fetch(fetchLink + '/api/project/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
@@ -88,7 +86,8 @@ export default function ProjectManager({navigation, route}) {
         },
         }).then(res => res.json()).then(data => console.log(data));
         alert("Project was added Successfully!")
-        //navigation.replace("Login");
+        navigation.pop()
+        navigation.replace("Project")
     }
   }
 

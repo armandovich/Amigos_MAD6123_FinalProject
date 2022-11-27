@@ -6,6 +6,7 @@ import { FlatList, Pressable, Text, View } from 'react-native';
 import general from '../styles/General.js';
 import projectS from '../styles/ProjectList.js';
 import { userLoggedIn } from './Login.js';
+import fetchLink from '../helpers/fetchLink.js';
 
 const dummyData = [
     {
@@ -33,6 +34,20 @@ const dummyData = [
 ]
 
 export default function Projects({navigation}) {
+
+    const getProjectsDB = () => {
+          fetch(fetchLink + '/api/project/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+              method: 'GET',
+              }).then(res => res.json()).then(data => {
+                  console.log(data)
+                  setProjectList(data)
+              });
+      }
+
+      useEffect(() => {
+        getProjectsDB()
+    }, []);
+      
     const [projectList, setProjectList] = useState(dummyData);
 
     const openProject = (index) => {
