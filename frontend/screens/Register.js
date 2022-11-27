@@ -28,6 +28,8 @@ export default function Login({navigation}) {
             alert("Please fill all the inputs!")
         }else if(password != confirmPassword){
             alert("Passwords are not the same!")
+        }else if(password.length <6){
+            alert("Password must be at least 6 characters!")
         }else{
             let pos = ""
             for(let i=0;i<items.length;i++){
@@ -51,6 +53,8 @@ export default function Login({navigation}) {
                 'Content-Type': 'application/json'
             },
             }).then(res => res.json()).then(data => console.log(data));
+            alert("Registration was successful! You can now Sign in.")
+            navigation.replace("Login");
         }
       }
 
@@ -73,8 +77,8 @@ export default function Login({navigation}) {
                 setItems={setItems} />
 
                 <TextInput style={general.inputs} placeholder='Email' onChangeText={text => setEmail(text)}/>
-                <TextInput style={general.inputs} placeholder='Password' onChangeText={text => setPassword(text)}/>
-                <TextInput style={general.inputs} placeholder='Confirm Password' onChangeText={text => setConfirmPassword(text)}/>
+                <TextInput style={general.inputs} placeholder='Password' onChangeText={text => setPassword(text)} secureTextEntry/>
+                <TextInput style={general.inputs} placeholder='Confirm Password' onChangeText={text => setConfirmPassword(text)} secureTextEntry/>
 
                 <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleSignUp()}>
                     <Text style={general.btnTxt}>Register</Text>
