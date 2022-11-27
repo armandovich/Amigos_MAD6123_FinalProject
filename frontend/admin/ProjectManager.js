@@ -91,6 +91,31 @@ export default function ProjectManager({navigation, route}) {
     }
   }
 
+  const handleUpdate = () => {
+    if(name == '' || desc == '' || starDate == 'YYYY-MM-DD' || endDate == 'YYYY-MM-DD'){
+        alert("Please check the inputs!")
+    }else{
+      let projID = project._id
+        const projData = {
+            name: name,
+            description: desc,
+            status: "Ongoing",
+            start_date:starDate,
+            end_date: endDate,
+        }
+        fetch(fetchLink + '/api/project/'+projID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'PATCH',
+        body: JSON.stringify(projData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        }).then(res => res.json()).then(data => console.log(data));
+        alert("Project was updated Successfully!")
+        navigation.pop()
+        navigation.replace("Project")
+    }
+  }
+
   return (
     <SafeAreaView style={general.container}>
       <Pressable onPress={goBack} style={general.returnBtn}>
@@ -130,7 +155,7 @@ export default function ProjectManager({navigation, route}) {
               <Text style={[general.whiteTxt, general.boldTxt, general.greenTxt]}>{cost}</Text>
             </View>
 
-            <Pressable style={[general.btn, general.btnGreen]}>
+            <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleUpdate()}>
                 <Text style={[general.btnTxt]}>Update</Text>
             </Pressable>
 
