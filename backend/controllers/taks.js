@@ -19,15 +19,15 @@ export default {
         const data = new taskModel({
             name: req.body.name,
             description: req.body.description,
-            created_by: req.body.creator,
+            created_by: req.body.created_by,
             status: req.body.status,
             responsable: req.body.responsable,
-            pay_rate: req.body.rate,
+            pay_rate: req.body.pay_rate,
             post_hours: null,
             start_date: tempStart,
             end_date: tempEnd,
             completed_date: null,
-            project_id: req.body.project
+            project_id: req.body.project_id
         })
     
         try {
