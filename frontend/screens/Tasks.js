@@ -214,7 +214,7 @@ export default function Tasks({navigation, route}) {
   }
 
   const openTask = (index) => {
-    navigation.navigate('TaskInfo', { task: statusList[index] })
+    navigation.navigate('TaskInfo', { task: statusList[index] , project: project})
   }
 
   const toggleMenu = () => {

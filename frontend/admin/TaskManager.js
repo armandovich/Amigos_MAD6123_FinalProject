@@ -116,7 +116,7 @@ export default function TaskManager({navigation, route}) {
     }
   }
 
-  function updateTaskNumber(tNumber){             //Method to update the task number after adding task or deleting task
+  function updateTaskNumber(tNumber){             //Method to update the task number of project after adding task or deleting task
         let projID = project._id
         let stDate = formatDate(project.start_date)
         let enDate = formatDate(project.end_date)
