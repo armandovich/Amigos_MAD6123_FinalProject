@@ -107,9 +107,27 @@ export default function TaskManager({navigation, route}) {
         },
         }).then(res => res.json()).then(data => console.log(data));
         alert("Task was added Successfully!")
+
+        let projID = project._id
+        let stDate = formatDate(project.start_date)
+        let enDate = formatDate(project.end_date)
+        const projData = {
+            task_number: project.task_number+1,
+            start_date: stDate,
+            end_date: stDate
+            
+        }
+        fetch(fetchLink + '/api/project/'+projID, {           //Updating project by adding 1 to the number of tasks
+        method: 'PATCH',
+        body: JSON.stringify(projData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        }).then(res => res.json()).then(data => console.log(data));
         navigation.pop()
         navigation.pop()
-        //navigation.replace("TaskList")
+        navigation.replace("Home")
+
     }
   }
 
