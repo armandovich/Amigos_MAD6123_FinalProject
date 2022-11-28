@@ -8,7 +8,7 @@ import general from '../styles/General.js';
 import taskS from '../styles/TaskList.js';
 import fetchLink from "../helpers/fetchLink.js";
 
-const tempTask = [
+/*const tempTask = [
   {
     name: 'Task A',
     description: 'task desc here...',
@@ -189,13 +189,14 @@ const tempTask = [
     end_date: "2022-02-01",
     completed_date: null
   }
-];
+];*/
 const options = ['To-Do', 'Ongoing', 'Completed']
 
 export default function Tasks({navigation, route}) {
   const [project, setProject] = useState(route.params.project);
   const [taskList, setTaskList] = useState();
-  const [statusList, setStatusList] = useState(tempTask.filter((a) => a.status == 'To-Do'));
+  //const [statusList, setStatusList] = useState(statusList.filter((a) => a.status == 'To-Do'));
+  const [statusList, setStatusList] = useState([]);
   const [status, setStatus] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
 

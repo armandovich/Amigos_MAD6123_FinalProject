@@ -147,6 +147,16 @@ export default function TaskManager({navigation, route}) {
     }
   }
 
+  const handleDelete = () => {
+    let taskID = task._id
+      fetch(fetchLink + '/api/task/'+taskID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+      method: 'DELETE',
+      }).then(res => res.json()).then(data => console.log(data));
+      alert("Task was deleted Successfully!")
+      navigation.pop()
+      navigation.pop()
+}
+
     useEffect(() => {
       getUsersDB()
     }, []);
@@ -209,7 +219,7 @@ export default function TaskManager({navigation, route}) {
             <Text style={[general.btnTxt]}>Update</Text>
         </Pressable>
 
-        <Pressable style={[general.btn, general.btnRed]}  onPress={() => goToScreen('Login')} >
+        <Pressable style={[general.btn, general.btnRed]}  onPress={() => handleDelete()} >
             <Text style={[general.btnTxt]}>Delete</Text>
         </Pressable>
       </>
