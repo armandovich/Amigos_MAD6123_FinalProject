@@ -80,6 +80,7 @@ export default function TaskInfo({navigation, route}) {
                     post_hours: {hoursWorked: hoursWorked},
                     start_date: stDate,
                     end_date: enDate,
+                    completed_date: null
             }
             updateCompleteTaskNumber(project.task_complete - 1)
         }
