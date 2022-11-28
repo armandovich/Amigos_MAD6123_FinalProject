@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DropDownPicker from "react-native-dropdown-picker";
-import { StyleSheet, Text, Pressable, View, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, Text, Pressable, View, ScrollView, TextInput, Alert } from 'react-native';
 import general from '../styles/General.js';
 import fetchLink from "../helpers/fetchLink.js";
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
@@ -91,7 +91,7 @@ export default function TaskManager({navigation, route}) {
         const taskData = {
           name: name,
           description: desc,
-          created_by: userLoggedIn._id,
+          created_by: userLoggedIn.first_name + " " + userLoggedIn.last_name,
           status: "Ongoing",
           assigned_to: {id: employeeID, name: employeeName},
           pay_rate: rate,
@@ -173,15 +173,29 @@ export default function TaskManager({navigation, route}) {
   }
 
   const handleDelete = () => {
-    let taskID = task._id
-      fetch(fetchLink + '/api/task/'+taskID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
-      method: 'DELETE',
-      }).then(res => res.json()).then(data => console.log(data));
-      alert("Task was deleted Successfully!")
-      updateTaskNumber(project.task_number-1)
-      navigation.pop()
-      navigation.pop()
-      navigation.replace("Home")
+    Alert.alert(
+      "Task Delete",
+      "Are you sure you want to delete this Task?",
+      [
+        {
+          text: "Cancel",
+          //onPress: () => console.log("Cancel Pressed"),
+        },
+        { text: "Yes", onPress: () => {
+          let taskID = task._id
+          fetch(fetchLink + '/api/task/'+taskID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+          method: 'DELETE',
+          }).then(res => res.json()).then(data => console.log(data));
+          alert("Task was deleted Successfully!")
+          updateTaskNumber(project.task_number-1)
+          navigation.pop()
+          navigation.pop()
+          navigation.replace("Home")
+        } 
+      }
+      ]
+    );
+    
 }
 
     useEffect(() => {

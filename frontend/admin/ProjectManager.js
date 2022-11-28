@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Pressable, TextInput, ScrollView, View } from 'react-native';
+import { Text, Pressable, TextInput, ScrollView, View, Alert } from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import general from '../styles/General.js';
 import fetchLink from "../helpers/fetchLink.js";
@@ -117,13 +117,26 @@ export default function ProjectManager({navigation, route}) {
   }
 
   const handleDelete = () => {
-      let projID = project._id
+    Alert.alert(
+      "Project Delete",
+      "Are you sure you want to delete this project?",
+      [
+        {
+          text: "Cancel",
+          //onPress: () => console.log("Cancel Pressed"),
+        },
+        { text: "Yes", onPress: () => {
+          let projID = project._id
         fetch(fetchLink + '/api/project/'+projID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
         method: 'DELETE',
         }).then(res => res.json()).then(data => console.log(data));
         alert("Project was deleted Successfully!")
         navigation.pop()
         navigation.replace("Project")
+        } }
+      ]
+    );
+      
   }
 
   return (

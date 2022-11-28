@@ -27,8 +27,26 @@ export default function Projects({navigation}) {
               });
       }
 
+      const getProjectsDBNonAdmin = () => {
+        fetch(fetchLink + '/api/project/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+            method: 'GET',
+            }).then(res => res.json()).then(data => {
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                  if(data[i].task_number - data[i].task_complete == 0){
+                      data[i].status = "Completed"
+                  }
+                }
+                setProjectList(data)
+            });
+    }
+
       useEffect(() => {
-        getProjectsDB()
+        if(isAdmin){
+            getProjectsDB()
+        }else{
+            getProjectsDBNonAdmin()
+        }
     }, []);
       
     const [projectList, setProjectList] = useState(dummyData);
