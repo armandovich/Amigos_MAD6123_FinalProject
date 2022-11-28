@@ -41,6 +41,10 @@ const dataSchema = new mongoose.Schema({
         require: false,
         type: Date
     },
+    project_id: {
+        required: true,
+        type: String
+    }
 })
 
 export default mongoose.model('tasks', dataSchema)

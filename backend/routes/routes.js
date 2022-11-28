@@ -1,6 +1,7 @@
 import express from 'express'
-import project from '../controllers/project.js'
 import user from '../controllers/user.js'
+import project from '../controllers/project.js'
+import task from '../controllers/taks.js';
 
 const router = express.Router()
 
@@ -26,12 +27,31 @@ router.post('/project', (req, res) => {
     project.post(req, res);
 })
 
-router.patch('/project/:id', async (req, res) => {
+router.patch('/project/:id', (req, res) => {
     project.patch(req, res);
 })
 
-router.delete('/project/:id', async (req, res) => {
+router.delete('/project/:id', (req, res) => {
     project.delete(req, res);
+})
+
+//==========================
+// Task Endpoints
+//==========================
+router.get('/task/:project_id', (req, res) => {
+    task.get(req, res);
+})
+
+router.post('/task', (req, res) => {
+    task.post(req, res);
+})
+
+router.patch('/task/:id', (req, res) => {
+    task.patch(req, res);
+})
+
+router.delete('/task/:id', (req, res) => {
+    task.delete(req, res);
 })
 
 export default router

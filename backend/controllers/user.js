@@ -12,7 +12,7 @@ export default {
             if(queryString) {
                 const user = await userModel.findOne( { email: queryString.email }) ;
                 if (user && bcrypt.compareSync(queryString.password, user.password)) {
-                    res.json(user)
+                    res.json(user);
                 } else {
                     throw new Error('User not found.');
                 }
@@ -21,7 +21,7 @@ export default {
             }
         }
         catch(error){
-            res.status(500).json({message: error.message})
+            res.status(500).json({message: error.message});
         }
     },
     post : async (req, res) => {
@@ -43,7 +43,7 @@ export default {
                 throw new Error('Email has been used.');
             } else {
                 const dataToSave = data.save();
-                res.status(200).json(dataToSave)
+                res.status(200).json(dataToSave);
             }
         }
         catch (error) {
