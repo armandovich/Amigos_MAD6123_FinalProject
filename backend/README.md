@@ -61,9 +61,9 @@
 | `name` | `string` | **Required**. Task name. |
 | `description` | `string` | **Required**. Task description. |
 | `created_by` | `string` | **Required**. Member who create the task. |
-| `status` | `string` | Task current status. |
-| `responsable` | `map` | Who is going to work on the task. |
-| `pay_rate` | `number` | Hourly pay rate for current task. |
+| `status` | `string` | **Required**. Task current status. |
+| `responsable` | `map` | **Required**. Who is going to work on the task. |
+| `pay_rate` | `number` | **Required**. Hourly pay rate for current task. |
 | `post_hours` | `array` | All hours posted for current task. |
 | `start_date` | `date` | **Required**. Start date for the project. |
 | `end_date` | `date` | **Required**. End date for the project. |
