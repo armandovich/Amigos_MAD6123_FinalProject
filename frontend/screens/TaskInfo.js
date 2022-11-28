@@ -5,8 +5,12 @@ import { Text, Pressable, View, ScrollView, TextInput } from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import general from '../styles/General.js';
 import fetchLink from "../helpers/fetchLink.js";
+import { userLoggedIn } from './Login.js';
+
 
 export default function TaskInfo({navigation, route}) {
+
+
     const [task, setTask] = useState(route.params.task);
     const [project, setProject] = useState(route.params.project);
     const [open, setOpen] = useState(false);
@@ -17,6 +21,8 @@ export default function TaskInfo({navigation, route}) {
         { label: 'Completed', value: 2 }
     ]);
     const [hoursWorked, setHoursWorked] = useState(0);
+
+
 
     const goBack = () => {
         navigation.goBack()
@@ -105,9 +111,11 @@ export default function TaskInfo({navigation, route}) {
         }
       }, []);
 
-    
+
 
     return (
+
+        
         <SafeAreaView style={general.container}>
             <Pressable onPress={goBack} style={general.returnBtn}>
                 <Ionicons name="arrow-back" size={24}  style={{marginRight: 15}} color="#84B026" />
@@ -129,9 +137,18 @@ export default function TaskInfo({navigation, route}) {
 
                 {/* <Text style={general.whiteTxt}>Created By:</Text>
                 <Text style={general.whiteTxt}>{task.created_by}</Text>*/}
-
-                <Text style={general.whiteTxt}>Edit the status of the task:</Text>
                 
+          </View>
+
+                
+                
+
+
+                {userLoggedIn._id != task.assigned_to.id ? null:
+
+                <View style={[general.fullW, general.paddingH]}>
+                <Text style={general.whiteTxt}>Edit the status of the task:</Text>
+
                 <DropDownPicker
                 open={open}
                 value={value}
@@ -148,8 +165,16 @@ export default function TaskInfo({navigation, route}) {
                 <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleUpdate()}>
                 <Text style={general.btnTxt}>Update Task</Text>
                 </Pressable>
+                </View>
 
-            </View>
+
+                }
+               
+
+                
+               
+
+           
         </SafeAreaView>
     );
 }
