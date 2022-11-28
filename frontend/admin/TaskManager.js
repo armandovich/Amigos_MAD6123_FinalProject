@@ -107,7 +107,8 @@ export default function TaskManager({navigation, route}) {
         },
         }).then(res => res.json()).then(data => console.log(data));
         alert("Task was added Successfully!")
-        //navigation.pop()
+        navigation.pop()
+        navigation.pop()
         //navigation.replace("TaskList")
     }
   }
@@ -144,6 +145,8 @@ export default function TaskManager({navigation, route}) {
         },
         }).then(res => res.json()).then(data => console.log(data));
         alert("Task was updated Successfully!")
+        navigation.pop()
+        navigation.pop()
     }
   }
 
