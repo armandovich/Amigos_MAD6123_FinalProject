@@ -86,6 +86,7 @@ export default function TaskInfo({navigation, route}) {
                     post_hours: {hoursWorked: hoursWorked},
                     start_date: stDate,
                     end_date: enDate,
+                    completed_date: null
             }
             updateCompleteTaskNumber(project.task_complete - 1)
         }
@@ -109,6 +110,14 @@ export default function TaskInfo({navigation, route}) {
         if(task.post_hours != null){
         setHoursWorked(task.post_hours.hoursWorked)
         }
+
+        if(task.status == "To-Do"){
+            setValue(0)
+        }else if(task.status == "Ongoing"){
+            setValue(1)
+        }else{
+            setValue(2)
+        }
       }, []);
 
 
@@ -130,10 +139,10 @@ export default function TaskInfo({navigation, route}) {
                 <Text style={general.whiteTxt}>{task.assName}</Text>
 
                 <Text style={general.whiteTxt}>Start Date:</Text>
-                <Text style={general.whiteTxt}>{task.start_date}</Text>
+                <Text style={general.whiteTxt}>{formatDate(task.start_date)}</Text>
                 
                 <Text style={general.whiteTxt}>Due Date:</Text>
-                <Text style={general.whiteTxt}>{task.end_date}</Text>
+                <Text style={general.whiteTxt}>{formatDate(task.end_date)}</Text>
 
                 {/* <Text style={general.whiteTxt}>Created By:</Text>
                 <Text style={general.whiteTxt}>{task.created_by}</Text>*/}

@@ -14,7 +14,8 @@ export default function Projects({navigation}) {
     let isAdmin = userLoggedIn.admin
 
     const getProjectsDB = () => {
-          fetch(fetchLink + '/api/project/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        const userID = isAdmin ? "" : userLoggedIn._id
+          fetch(fetchLink + '/api/project/' + userID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
               method: 'GET',
               }).then(res => res.json()).then(data => {
                   console.log(data)
@@ -26,6 +27,7 @@ export default function Projects({navigation}) {
                   setProjectList(data)
               });
       }
+
 
       useEffect(() => {
         getProjectsDB()
