@@ -53,3 +53,37 @@
 ```http
   DELETE /api/project/:id
 ```
+
+### Task Reference
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `name` | `string` | **Required**. Task name. |
+| `description` | `string` | **Required**. Task description. |
+| `created_by` | `string` | **Required**. Member who create the task. |
+| `status` | `string` | Task current status. |
+| `responsable` | `map` | Who is going to work on the task. |
+| `pay_rate` | `number` | Hourly pay rate for current task. |
+| `post_hours` | `array` | All hours posted for current task. |
+| `start_date` | `date` | **Required**. Start date for the project. |
+| `end_date` | `date` | **Required**. End date for the project. |
+| `completed_date` | `date` | Date where all task are completed. |
+| `project_id` | `string` | **Required**. The project where task belong. |
+
+#### Endpoints
+
+```http
+  GET /api/task/:project_id
+```
+
+```http
+  POST /api/task
+```
+
+```http
+  POST /api/task/:id
+```
+
+```http
+  POST /api/task/:id
+```
