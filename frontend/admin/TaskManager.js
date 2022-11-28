@@ -4,11 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import DropDownPicker from "react-native-dropdown-picker";
 import { StyleSheet, Text, Pressable, View, ScrollView, TextInput } from 'react-native';
 import general from '../styles/General.js';
+import fetchLink from "../helpers/fetchLink.js";
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { userLoggedIn } from "../screens/Login.js";
 
 export default function TaskManager({navigation, route}) {
   // Hold params data from route
   const [ediMode, setEditMode] = useState(route.params.isEdit);
   const [task, setTask] = useState(route.params.task);
+  const [project, setProject] = useState(route.params.project);
+  
   // Task Model Attributes
   const [name, setName] = useState();
   const [desc, setDesc] = useState();
@@ -22,10 +27,9 @@ export default function TaskManager({navigation, route}) {
   // Dropdown variables
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: 'Employee 1', value: 0 },
-    { label: 'Employee 2', value: 1 }
-  ]);
+  const [items, setItems] = useState([]);
+  //Users from DB
+  const [users, setUsers] = useState([])
 
   const goBack = () => {
     navigation.goBack()
@@ -57,6 +61,61 @@ export default function TaskManager({navigation, route}) {
     showMode('date');
   };
 
+   const getUsersDB = () => {
+      fetch(fetchLink + '/api/user/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+          method: 'GET',
+          }).then(res => res.json()).then(data => {
+            console.log(data)
+            let temp = []
+            for(let i=0;i<data.length;i++){
+              temp.push({label: data[i].first_name + " " + data[i].last_name, value: i, id: data[i]._id})
+            }
+            console.log(temp)
+              setItems(temp)
+          });
+  }
+
+  const handleCreate = () => {
+    if(name == '' || desc == '' || starDate == 'YYYY-MM-DD' || endDate == 'YYYY-MM-DD' || rate == 0){
+        alert("Please check the inputs!")
+    }else{
+      let employee = ""
+            for(let i=0;i<items.length;i++){
+                if(items[i].value == value){
+                    employee = items[i].id
+                    break
+                }
+            }
+
+            //console.log(name + desc + userLoggedIn._id + employee + " " + rate + starDate + endDate + " " + project._id)
+        const taskData = {
+          name: name,
+          description: desc,
+          created_by: userLoggedIn._id,
+          status: "Ongoing",
+          assigned_to: {id: employee},
+          pay_rate: rate,
+          start_date: starDate,
+          end_date: endDate,
+          project_id: project._id
+        }
+        fetch(fetchLink + '/api/task/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'POST',
+        body: JSON.stringify(taskData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        }).then(res => res.json()).then(data => console.log(data));
+        alert("Task was added Successfully!")
+        //navigation.pop()
+        //navigation.replace("TaskList")
+    }
+  }
+
+    useEffect(() => {
+      getUsersDB()
+    }, []);
+
   useEffect(() => {
     if (task) {
       setName(task.name);
@@ -80,11 +139,11 @@ export default function TaskManager({navigation, route}) {
       </Pressable>
 
       <ScrollView style={[general.fullW, general.paddingH]}>
-        <TextInput style={general.inputs} value={name} placeholder='Name'/>
+        <TextInput style={general.inputs} value={name} placeholder='Name' onChangeText={text => setName(text)}/>
 
-        <TextInput style={general.inputs} value={desc} placeholder='Description'/>
+        <TextInput style={general.inputs} value={desc} placeholder='Description' onChangeText={text => setDesc(text)}/>
 
-        <Text style={general.whiteTxt}>Task Responsable:</Text>
+        <Text style={general.whiteTxt}>Assign To:</Text>
         <DropDownPicker
         open={open}
         value={value}
@@ -96,7 +155,7 @@ export default function TaskManager({navigation, route}) {
         setItems={setItems} />
 
         <Text style={[general.whiteTxt, {marginBottom: 5}]}>Hourly Rate:</Text>
-        <TextInput style={general.inputs} value={rate} placeholder='$0.00'/>
+        <TextInput style={general.inputs} value={rate} placeholder='$0.00' onChangeText={text => setRate(text)}/>
 
         <Text style={general.whiteTxt}>Start Date: </Text>
         <Pressable onPress={() => showDatepicker(true)} style={general.datePicker}>
@@ -120,7 +179,7 @@ export default function TaskManager({navigation, route}) {
         </Pressable>
       </>
       :
-        <Pressable style={[general.btn, general.btnGreen]}>
+        <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleCreate()}>
           <Text style={general.btnTxt}>Create</Text>
         </Pressable>
       }

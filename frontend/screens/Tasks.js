@@ -203,11 +203,11 @@ export default function Tasks({navigation, route}) {
   }
 
   const createTask = () => {
-    navigation.navigate('TaskManager', { task: null, isEdit: false })
+    navigation.navigate('TaskManager', { task: null, isEdit: false, project: project})
   }
 
   const editTask = (index) => {
-    navigation.navigate('TaskManager', { task: statusList[index], isEdit: true })
+    navigation.navigate('TaskManager', { task: statusList[index], isEdit: true, project: project})
   }
 
   const openTask = (index) => {
