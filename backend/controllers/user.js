@@ -9,7 +9,7 @@ export default {
         const queryString = url.parse(req.url, true).query;
         
         try{
-            if(queryString) {
+            if(queryString.email) {
                 const user = await userModel.findOne( { email: queryString.email }) ;
                 if (user && bcrypt.compareSync(queryString.password, user.password)) {
                     res.json(user);
@@ -17,7 +17,8 @@ export default {
                     throw new Error('User not found.');
                 }
             } else {
-                throw new Error('User not found.');
+                const user = await userModel.find();
+                res.json(user);
             }
         }
         catch(error){
