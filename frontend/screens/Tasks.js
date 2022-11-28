@@ -7,6 +7,7 @@ import { Text, Pressable, FlatList, View } from 'react-native';
 import general from '../styles/General.js';
 import taskS from '../styles/TaskList.js';
 import fetchLink from "../helpers/fetchLink.js";
+import { userLoggedIn } from "./Login.js";
 
 /*const tempTask = [
   {
@@ -255,6 +256,12 @@ export default function Tasks({navigation, route}) {
     return myArr[7]
   }
 
+  if(userLoggedIn.admin){
+
+  }else{
+
+  }
+
   return (
     <SafeAreaView style={general.container}>
       <View style={general.topNav}>
@@ -274,10 +281,12 @@ export default function Tasks({navigation, route}) {
 
       <View style={[general.paddingH, general.fullW]}>
         {showMenu ?
-          <Pressable onPress={createTask} style={[general.btn, general.btnBorder]}>
+        userLoggedIn.admin ? 
+            <Pressable onPress={createTask} style={[general.btn, general.btnBorder]}>
             <Text style={[general.btnTxt, general.greenTxt]}>Add Task</Text>
             <Ionicons name="add-circle-outline" size={24} style={{marginLeft: 10}} color="#84B026" />
-          </Pressable>
+            </Pressable>
+          :<></>
         : <></>}
 
         {showMenu ?
@@ -317,9 +326,12 @@ export default function Tasks({navigation, route}) {
 
           <Pressable onPress={() => openTask(index)} style={taskS.exit}></Pressable>
 
+          {userLoggedIn.admin ? 
           <Pressable onPress={() => editTask(index) } style={taskS.edit}>
             <FontAwesome name="edit" size={24} color="#84B026" />
           </Pressable>
+          :<></>
+          }
         </View>
       }/>
 
