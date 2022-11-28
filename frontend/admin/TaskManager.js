@@ -28,8 +28,6 @@ export default function TaskManager({navigation, route}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
-  //Users from DB
-  const [users, setUsers] = useState([])
 
   const goBack = () => {
     navigation.goBack()
@@ -79,10 +77,12 @@ export default function TaskManager({navigation, route}) {
     if(name == '' || desc == '' || starDate == 'YYYY-MM-DD' || endDate == 'YYYY-MM-DD' || rate == 0){
         alert("Please check the inputs!")
     }else{
-      let employee = ""
+      let employeeID = ""
+      let employeeName = ""
             for(let i=0;i<items.length;i++){
                 if(items[i].value == value){
-                    employee = items[i].id
+                    employeeID = items[i].id
+                    employeeName = items[i].label
                     break
                 }
             }
@@ -93,7 +93,7 @@ export default function TaskManager({navigation, route}) {
           description: desc,
           created_by: userLoggedIn._id,
           status: "Ongoing",
-          assigned_to: {id: employee},
+          assigned_to: {id: employeeID, name: employeeName},
           pay_rate: rate,
           start_date: starDate,
           end_date: endDate,

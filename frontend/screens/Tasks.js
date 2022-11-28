@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Pressable, FlatList, View } from 'react-native';
 import general from '../styles/General.js';
 import taskS from '../styles/TaskList.js';
+import fetchLink from "../helpers/fetchLink.js";
 
 const tempTask = [
   {
@@ -230,6 +231,29 @@ export default function Tasks({navigation, route}) {
     }
   }
 
+  const getTasksDB = () => {
+    fetch(fetchLink + '/api/task/'+project._id, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'GET',
+        }).then(res => res.json()).then(data => {
+            for(let i =0; i<data.length;i++){
+              data[i].assName = data[i].assigned_to.name
+            }
+            console.log(data)
+            setTaskList(data)
+            setStatusList(data)
+        });
+  }
+
+  useEffect(() => {
+    getTasksDB()
+  }, []);
+
+  function getName(str){
+    let myArr = str.split("\"")
+    console.log(myArr)
+    return myArr[7]
+  }
+
   return (
     <SafeAreaView style={general.container}>
       <View style={general.topNav}>
@@ -283,7 +307,7 @@ export default function Tasks({navigation, route}) {
         <View style={taskS.card}>
           <View style={taskS.cardPadding}>
             <Text style={[general.greenTxt, taskS.cardName]}>{item.name}</Text>
-            <Text style={[general.whiteTxt, taskS.cardResponsable]}>{item.responsable.name}</Text>
+            <Text style={[general.whiteTxt, taskS.cardResponsable]}>{item.assName}</Text>
             <View style={[general.fullW, general.flexRow]}>
               <Text style={[general.whiteTxt, general.boldTxt]}>Due Date: </Text>
               <Text style={general.greenTxt}>{item.end_date}</Text>
