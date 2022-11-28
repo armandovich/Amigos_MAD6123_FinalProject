@@ -1,7 +1,7 @@
 import express from 'express'
 import user from '../controllers/user.js'
 import project from '../controllers/project.js'
-import task from '../controllers/taks.js';
+import task from '../controllers/task.js';
 
 const router = express.Router()
 

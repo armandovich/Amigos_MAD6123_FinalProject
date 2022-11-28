@@ -21,7 +21,7 @@ export default {
             description: req.body.description,
             created_by: req.body.created_by,
             status: req.body.status,
-            responsable: req.body.responsable,
+            assigned_to: req.body.assigned_to,
             pay_rate: req.body.pay_rate,
             post_hours: null,
             start_date: tempStart,
