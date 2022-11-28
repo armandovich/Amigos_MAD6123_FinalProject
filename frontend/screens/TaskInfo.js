@@ -46,7 +46,7 @@ export default function TaskInfo({navigation, route}) {
   }
 
     const handleUpdate = () => {
-        if(value == null || hoursWorked <= 0){
+        if(value == null || hoursWorked < 0){
             alert("Please check input fields.")
         }else{
             let stat = ""

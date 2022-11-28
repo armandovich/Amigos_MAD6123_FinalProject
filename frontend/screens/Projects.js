@@ -18,6 +18,11 @@ export default function Projects({navigation}) {
               method: 'GET',
               }).then(res => res.json()).then(data => {
                   console.log(data)
+                  for(let i=0;i<data.length;i++){
+                    if(data[i].task_number - data[i].task_complete == 0){
+                        data[i].status = "Completed"
+                    }
+                  }
                   setProjectList(data)
               });
       }
