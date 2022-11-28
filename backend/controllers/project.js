@@ -1,10 +1,49 @@
+import userModel from '../models/user.js';
+import taskModel from '../models/task.js';
 import projectModel from '../models/project.js'
 
 export default {
     get : async (req, res) => {
         try{
-            const data = await projectModel.find();
-            res.json(data)
+            const user_id = req.params.user_id;
+                
+            if(user_id) {
+                const user = await userModel.findOne( { _id: user_id } );
+
+                const tasks = await taskModel.aggregate([
+                    { 
+                        $match: {
+                            assigned_to: { 
+                                    id: user_id,
+                                    name: `${user.first_name} ${user.last_name}`
+                            }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: {
+                                project_id: '$project_id',
+                                user_id: '$assigned_to.id',
+                                user_name: '$assigned_to.name'
+                            }
+                        }
+                    }
+                ]);
+                
+                let projectList = [];
+
+                for(let i =0; i < tasks.length; i++) {
+                    projectList.push(tasks[i]._id.project_id);
+                }
+console.log(user)
+                const data = await projectModel.find( { '_id': { $in: projectList } } );
+                
+
+                res.json(data);
+            } else {
+                const data = await projectModel.find();
+                res.json(data)
+            }
         }
         catch(error){
             res.status(500).json({message: error.message});

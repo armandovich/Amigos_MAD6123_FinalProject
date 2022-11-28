@@ -14,7 +14,7 @@ function Login({navigation}) {
         navigation.navigate({ name: value });
     }
 
-    const handleSignIn = () => {
+    const handleSignIn = async () => {
       if(email == '' || password == ''){
         alert("Please fill in all the inputs!")
       }else{
@@ -22,22 +22,21 @@ function Login({navigation}) {
           email: email,
           password:password,
         }
-
-        fetch(fetchLink + '/api/user/?email='+ userData.email + "&password=" + userData.password, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        
+         //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        fetch(fetchLink + '/api/user/?email='+ userData.email + "&password=" + userData.password, {
             method: 'GET',
-            }).then(res => res.json()).then(data => {
-              if(data.message == "User not found."){
-                alert("Please check your email and password.")
-              }else{
-                console.log(data)
-                userLoggedIn = data
-                alert("Login successful!")
-                goToScreen('Home')
-              }
-            });
-          
+        }).then(res => res.json()).then(data => {
+          if(data.message == "User not found."){
+            alert("Please check your email and password.")
+          }else{
+            console.log(data)
+            userLoggedIn = data
+            alert("Login successful!")
+            goToScreen('Home')
+          }
+        });
       }
-      
     }
 
     return (

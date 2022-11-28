@@ -23,6 +23,10 @@ router.get('/project', (req, res) => {
     project.get(req, res);
 })
 
+router.get('/project/:user_id', (req, res) => {
+    project.get(req, res);
+})
+
 router.post('/project', (req, res) => {
     project.post(req, res);
 })
