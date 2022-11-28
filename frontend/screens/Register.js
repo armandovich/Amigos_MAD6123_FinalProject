@@ -47,7 +47,9 @@ export default function Login({navigation}) {
                 password:password,
             }
             console.log(JSON.stringify(userData))
-            fetch(fetchLink + '/api/user/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+
+             //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+            fetch(fetchLink + '/api/user/', { 
             method: 'POST',
             body: JSON.stringify(userData),
             headers: {
@@ -73,6 +75,7 @@ export default function Login({navigation}) {
                 items={items}
                 style={{ marginBottom: 15, marginTop: 5 }}
                 placeholder="None"
+                listMode="SCROLLVIEW"
                 setOpen={setOpen}
                 setValue={setValue}
                 setItems={setItems} />
