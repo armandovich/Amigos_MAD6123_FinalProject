@@ -108,13 +108,22 @@ export default function TaskManager({navigation, route}) {
         }).then(res => res.json()).then(data => console.log(data));
         alert("Task was added Successfully!")
 
+        updateTaskNumber(project.task_number+1)
+        navigation.pop()
+        navigation.pop()
+        navigation.replace("Home")
+
+    }
+  }
+
+  function updateTaskNumber(tNumber){             //Method to update the task number after adding task or deleting task
         let projID = project._id
         let stDate = formatDate(project.start_date)
         let enDate = formatDate(project.end_date)
         const projData = {
-            task_number: project.task_number+1,
+            task_number: tNumber,
             start_date: stDate,
-            end_date: stDate
+            end_date: enDate
             
         }
         fetch(fetchLink + '/api/project/'+projID, {           //Updating project by adding 1 to the number of tasks
@@ -124,11 +133,6 @@ export default function TaskManager({navigation, route}) {
             'Content-Type': 'application/json'
         },
         }).then(res => res.json()).then(data => console.log(data));
-        navigation.pop()
-        navigation.pop()
-        navigation.replace("Home")
-
-    }
   }
 
   const handleUpdate = () => {
@@ -174,8 +178,10 @@ export default function TaskManager({navigation, route}) {
       method: 'DELETE',
       }).then(res => res.json()).then(data => console.log(data));
       alert("Task was deleted Successfully!")
+      updateTaskNumber(project.task_number-1)
       navigation.pop()
       navigation.pop()
+      navigation.replace("Home")
 }
 
     useEffect(() => {
