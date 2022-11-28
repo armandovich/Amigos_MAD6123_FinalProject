@@ -7,6 +7,7 @@ const salt = bcrypt.genSaltSync(10);
 export default {
     get : async (req, res) => {
         const queryString = url.parse(req.url, true).query;
+        
         try{
             if(queryString) {
                 const user = await userModel.findOne( { email: queryString.email }) ;
