@@ -112,6 +112,41 @@ export default function TaskManager({navigation, route}) {
     }
   }
 
+  const handleUpdate = () => {
+    if(name == '' || desc == '' || starDate == 'YYYY-MM-DD' || endDate == 'YYYY-MM-DD' || rate == 0){
+        alert("Please check the inputs!")
+    }else{
+      let employeeID = ""
+      let employeeName = ""
+            for(let i=0;i<items.length;i++){
+                if(items[i].value == value){
+                    employeeID = items[i].id
+                    employeeName = items[i].label
+                    break
+                }
+            }
+      let taskID = task._id
+        const taskData = {
+          name: name,
+          description: desc,
+          //created_by: userLoggedIn._id,
+          //status: "Ongoing",
+          assigned_to: {id: employeeID, name: employeeName},
+          pay_rate: rate,
+          start_date: starDate,
+          end_date: endDate,
+        }
+        fetch(fetchLink + '/api/task/'+taskID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'PATCH',
+        body: JSON.stringify(taskData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        }).then(res => res.json()).then(data => console.log(data));
+        alert("Task was updated Successfully!")
+    }
+  }
+
     useEffect(() => {
       getUsersDB()
     }, []);
@@ -121,7 +156,7 @@ export default function TaskManager({navigation, route}) {
       setName(task.name);
       setDesc(task.description);
       setStatus(task.status);
-      setStatus(task.pay_rate);
+      setRate(task.pay_rate);
       setStartDate(formatDate(task.start_date));
       setEndDate(formatDate(task.end_date));
     }
@@ -155,7 +190,7 @@ export default function TaskManager({navigation, route}) {
         setItems={setItems} />
 
         <Text style={[general.whiteTxt, {marginBottom: 5}]}>Hourly Rate:</Text>
-        <TextInput style={general.inputs} value={rate} placeholder='$0.00' onChangeText={text => setRate(text)}/>
+        <TextInput style={general.inputs} value={String(rate)} placeholder='$0.00' onChangeText={text => setRate(text)}/>
 
         <Text style={general.whiteTxt}>Start Date: </Text>
         <Pressable onPress={() => showDatepicker(true)} style={general.datePicker}>
@@ -170,7 +205,7 @@ export default function TaskManager({navigation, route}) {
 
       {ediMode ? 
       <>
-        <Pressable style={[general.btn, general.btnGreen]}>
+        <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleUpdate()}>
             <Text style={[general.btnTxt]}>Update</Text>
         </Pressable>
 
