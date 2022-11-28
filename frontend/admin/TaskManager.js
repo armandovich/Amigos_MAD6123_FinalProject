@@ -126,7 +126,7 @@ export default function TaskManager({navigation, route}) {
             end_date: enDate
             
         }
-        fetch(fetchLink + '/api/project/'+projID, {           //Updating project by adding 1 to the number of tasks
+        fetch(fetchLink + '/api/project/'+projID, {           
         method: 'PATCH',
         body: JSON.stringify(projData),
         headers: {

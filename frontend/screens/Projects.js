@@ -8,32 +8,10 @@ import projectS from '../styles/ProjectList.js';
 import { userLoggedIn } from './Login.js';
 import fetchLink from '../helpers/fetchLink.js';
 
-const dummyData = [
-    {
-        _id: "637b85bdff01ac9ec51a3e32",
-        name: "Project A",
-        description: "New description...",
-        status: "Ongoing",
-        task_number: 5,
-        task_complete: 4,
-        total_cost: 0,
-        start_date: "2022-01-20T00:00:00.000Z",
-        end_date: "2022-02-01T00:00:00.000Z",
-    },
-    {
-        _id: "637b85bdff01ac9ec51a3e32",
-        name: "Project B",
-        description: "New description...",
-        status: "Ongoing",
-        task_number: 0,
-        task_complete: 0,
-        total_cost: 0,
-        start_date: "2022-01-20T00:00:00.000Z",
-        end_date: "2022-02-01T00:00:00.000Z",
-    }
-]
+const dummyData = []
 
 export default function Projects({navigation}) {
+    let isAdmin = userLoggedIn.admin
 
     const getProjectsDB = () => {
           fetch(fetchLink + '/api/project/', {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
@@ -66,60 +44,112 @@ export default function Projects({navigation}) {
         return new Date(value).toISOString().slice(0, 10);
     }
 
-    return (
-        <SafeAreaView style={general.container}>
-            <Text style={[general.headline, general.paddingH]}>Projects</Text>
-             <FlatList style={[general.fullW, general.paddingH]} data={projectList} 
-             ListHeaderComponent={
-                <Pressable onPress={createProject} style={[general.btn, general.btnBorder]}>
-                    <Text style={[general.btnTxt, general.greenTxt]}>Add Project</Text>
-                    <Ionicons name="add-circle-outline" size={24} style={{marginLeft: 10}} color="#84B026" />
-                </Pressable>
-             }
-             renderItem={({ item, index }) => 
-                <View style={projectS.card}>
-                    <View style={projectS.cardPadding}>
-                        <Text style={[projectS.cardName, general.greenTxt]}>{item.name}</Text>
-
-                        <View style={projectS.cardTask}>
-                            <Text style={general.whiteTxt}>Status: </Text>
-                            <Text style={[general.boldTxt, general.greenTxt]}>{item.status} </Text> 
-                        </View>
-                        
-                        <View style={projectS.cardBar}>
-                            <View style={[projectS.cardProgress, {width: `${(item.task_complete / item.task_number) * 100}%`}]}></View>
-                        </View>
-
-                        <View style={[general.flexRow, general.flexEvenSpace]}>
-                            <View style={projectS.cardTask}>
-                                <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number} </Text> 
-                                { item.task_number < 2 
-                                ? <Text style={general.whiteTxt}>Task</Text>
-                                : <Text style={general.whiteTxt}>Tasks</Text>
-                                }
-                            </View>
-
-                            <View style={projectS.cardTask}>
-                                <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number - item.task_complete} </Text> 
-                                <Text style={general.whiteTxt}>Left</Text>
-                            </View>
-                        </View>
-
-
-                        <View style={projectS.cardTask}>
-                            <Text style={general.whiteTxt}>Due Date: </Text>
-                            <Text style={[general.boldTxt, general.greenTxt]}>{formatDate(item.end_date)} </Text> 
-                        </View>
-                    </View>
-
-                    <Pressable onPress={() => openProject(index) } style={projectS.exit}></Pressable>
-
-                    <Pressable onPress={() => editProject(index) } style={projectS.edit}>
-                        <FontAwesome name="edit" size={24} color="#84B026" />
+    if(isAdmin){
+        return (
+            <SafeAreaView style={general.container}>
+                <Text style={[general.headline, general.paddingH]}>Projects</Text>
+                 <FlatList style={[general.fullW, general.paddingH]} data={projectList}
+                 ListHeaderComponent={
+                    <Pressable onPress={createProject} style={[general.btn, general.btnBorder]}>
+                        <Text style={[general.btnTxt, general.greenTxt]}>Add Project</Text>
+                        <Ionicons name="add-circle-outline" size={24} style={{marginLeft: 10}} color="#84B026" />
                     </Pressable>
-                </View>
-            }/>
-            <FlatList />
-        </SafeAreaView>
-    );
+                 }
+                 renderItem={({ item, index }) => 
+                    <View style={projectS.card}>
+                        <View style={projectS.cardPadding}>
+                            <Text style={[projectS.cardName, general.greenTxt]}>{item.name}</Text>
+    
+                            <View style={projectS.cardTask}>
+                                <Text style={general.whiteTxt}>Status: </Text>
+                                <Text style={[general.boldTxt, general.greenTxt]}>{item.status} </Text> 
+                            </View>
+                            
+                            <View style={projectS.cardBar}>
+                                <View style={[projectS.cardProgress, {width: `${(item.task_complete / item.task_number) * 100}%`}]}></View>
+                            </View>
+    
+                            <View style={[general.flexRow, general.flexEvenSpace]}>
+                                <View style={projectS.cardTask}>
+                                    <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number} </Text> 
+                                    { item.task_number < 2 
+                                    ? <Text style={general.whiteTxt}>Task</Text>
+                                    : <Text style={general.whiteTxt}>Tasks</Text>
+                                    }
+                                </View>
+    
+                                <View style={projectS.cardTask}>
+                                    <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number - item.task_complete} </Text> 
+                                    <Text style={general.whiteTxt}>Left</Text>
+                                </View>
+                            </View>
+    
+    
+                            <View style={projectS.cardTask}>
+                                <Text style={general.whiteTxt}>Due Date: </Text>
+                                <Text style={[general.boldTxt, general.greenTxt]}>{formatDate(item.end_date)} </Text> 
+                            </View>
+                        </View>
+    
+                        <Pressable onPress={() => openProject(index) } style={projectS.exit}></Pressable>
+    
+                        <Pressable onPress={() => editProject(index) } style={projectS.edit}>
+                            <FontAwesome name="edit" size={24} color="#84B026" />
+                        </Pressable>
+                    </View>
+                }/>
+                <FlatList />
+            </SafeAreaView>
+        );
+    }else{
+        return (
+            <SafeAreaView style={general.container}>
+                <Text style={[general.headline, general.paddingH]}>Projects</Text>
+                 <FlatList style={[general.fullW, general.paddingH]} data={projectList}
+                 renderItem={({ item, index }) => 
+                    <View style={projectS.card}>
+                        <View style={projectS.cardPadding}>
+                            <Text style={[projectS.cardName, general.greenTxt]}>{item.name}</Text>
+    
+                            <View style={projectS.cardTask}>
+                                <Text style={general.whiteTxt}>Status: </Text>
+                                <Text style={[general.boldTxt, general.greenTxt]}>{item.status} </Text> 
+                            </View>
+                            
+                            <View style={projectS.cardBar}>
+                                <View style={[projectS.cardProgress, {width: `${(item.task_complete / item.task_number) * 100}%`}]}></View>
+                            </View>
+    
+                            <View style={[general.flexRow, general.flexEvenSpace]}>
+                                <View style={projectS.cardTask}>
+                                    <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number} </Text> 
+                                    { item.task_number < 2 
+                                    ? <Text style={general.whiteTxt}>Task</Text>
+                                    : <Text style={general.whiteTxt}>Tasks</Text>
+                                    }
+                                </View>
+    
+                                <View style={projectS.cardTask}>
+                                    <Text style={[general.boldTxt, general.greenTxt]}>{item.task_number - item.task_complete} </Text> 
+                                    <Text style={general.whiteTxt}>Left</Text>
+                                </View>
+                            </View>
+    
+    
+                            <View style={projectS.cardTask}>
+                                <Text style={general.whiteTxt}>Due Date: </Text>
+                                <Text style={[general.boldTxt, general.greenTxt]}>{formatDate(item.end_date)} </Text> 
+                            </View>
+                        </View>
+    
+                        <Pressable onPress={() => openProject(index) } style={projectS.exit}></Pressable>
+                        
+                    </View>
+                }/>
+                <FlatList />
+            </SafeAreaView>
+        );
+    }
+
+    
 }
