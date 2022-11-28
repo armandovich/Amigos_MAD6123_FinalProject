@@ -20,11 +20,11 @@ export default function TaskInfo({navigation, route}) {
             </Pressable>
 
             <ScrollView style={[general.fullW, general.paddingH]}>
-                <Text style={general.whiteTxt}>{task.name}</Text>
-                <Text style={general.whiteTxt}>{task.description}</Text>
+                <Text style={general.whiteTxt}>Task Name: {task.name}</Text>
+                <Text style={general.whiteTxt}>Task Description: {task.description}</Text>
 
-                <Text style={general.whiteTxt}>Responsable:</Text>
-                <Text style={general.whiteTxt}>{task.responsable.name}</Text>
+                <Text style={general.whiteTxt}>Assigned To:</Text>
+                <Text style={general.whiteTxt}>{task.assName}</Text>
 
                 <Text style={general.whiteTxt}>Start Date:</Text>
                 <Text style={general.whiteTxt}>{task.start_date}</Text>
