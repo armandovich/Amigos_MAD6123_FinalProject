@@ -236,6 +236,7 @@ export default function TaskManager({navigation, route}) {
         items={items}
         style={{ marginBottom: 15, marginTop: 5 }}
         placeholder="None"
+        listMode="SCROLLVIEW"
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems} />

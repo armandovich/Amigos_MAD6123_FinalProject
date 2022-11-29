@@ -319,6 +319,10 @@ export default function Tasks({navigation, route}) {
             <Text style={[general.greenTxt, taskS.cardName]}>{item.name}</Text>
             <Text style={[general.whiteTxt, taskS.cardResponsable]}>{item.assName}</Text>
             <View style={[general.fullW, general.flexRow]}>
+              <Text style={[general.whiteTxt, general.boldTxt]}>Status: </Text>
+              <Text style={general.greenTxt}>{item.status}</Text>
+            </View>
+            <View style={[general.fullW, general.flexRow]}>
               <Text style={[general.whiteTxt, general.boldTxt]}>Due Date: </Text>
               <Text style={general.greenTxt}>{item.end_date}</Text>
             </View>
