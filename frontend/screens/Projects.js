@@ -96,6 +96,11 @@ export default function Projects({navigation}) {
                                 <Text style={general.whiteTxt}>Due Date: </Text>
                                 <Text style={[general.boldTxt, general.greenTxt]}>{formatDate(item.end_date)} </Text> 
                             </View>
+
+                            <View style={projectS.cardTask}>
+                                <Text style={general.whiteTxt}>Cost: </Text>
+                                <Text style={[general.boldTxt, general.greenTxt]}>${item.total_cost}</Text> 
+                            </View>
                         </View>
     
                         <Pressable onPress={() => openProject(index) } style={projectS.exit}></Pressable>

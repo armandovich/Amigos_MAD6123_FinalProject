@@ -45,6 +45,7 @@ export default function TaskInfo({navigation, route}) {
         }).then(res => res.json()).then(data => console.log(data));
   }
 
+
     const handleUpdate = () => {
         if(value == null || hoursWorked < 0){
             alert("Please check input fields.")
@@ -74,6 +75,25 @@ export default function TaskInfo({navigation, route}) {
 
             updateCompleteTaskNumber(project.task_complete + 1)
 
+            let tot = task.pay_rate * hoursWorked
+            let projID = project._id
+            let star = formatDate(project.start_date)
+            let end = formatDate(project.end_date)
+            
+            console.log(tot)
+            const projData = {
+                total_cost: project.total_cost + tot,
+                start_date: star,
+                end_date: end
+            }
+            fetch(fetchLink + '/api/project/'+projID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+            method: 'PATCH',
+            body: JSON.stringify(projData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            }).then(res => res.json()).then(data => console.log(data));
+
             }else{
                     taskData = {
                     status: stat,
@@ -83,6 +103,26 @@ export default function TaskInfo({navigation, route}) {
                     completed_date: null
             }
             updateCompleteTaskNumber(project.task_complete - 1)
+
+            let tot = task.pay_rate * hoursWorked
+            let projID = project._id
+            let star = formatDate(project.start_date)
+            let end = formatDate(project.end_date)
+            
+            console.log(tot)
+            const projData = {
+                total_cost: project.total_cost - tot,
+                start_date: star,
+                end_date: end
+            }
+            fetch(fetchLink + '/api/project/'+projID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+            method: 'PATCH',
+            body: JSON.stringify(projData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            }).then(res => res.json()).then(data => console.log(data));
+
         }
             fetch(fetchLink + '/api/task/'+taskID, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
             method: 'PATCH',
