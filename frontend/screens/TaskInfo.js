@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Pressable, View, ScrollView, TextInput } from 'react-native';
+import { Text, Pressable, View, TextInput } from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import general from '../styles/General.js';
+import taskS from '../styles/TaskInfo';
 import fetchLink from "../helpers/fetchLink.js";
 import { userLoggedIn } from './Login.js';
 
 
 export default function TaskInfo({navigation, route}) {
-
-
     const [task, setTask] = useState(route.params.task);
     const [project, setProject] = useState(route.params.project);
     const [open, setOpen] = useState(false);
@@ -73,7 +72,7 @@ export default function TaskInfo({navigation, route}) {
             if(stat == "Completed"){
                 taskData = {
                 status: stat,
-                post_hours: {hoursWorked: hoursWorked},
+                post_hours: hoursWorked,
                 start_date: stDate,
                 end_date: enDate,
                 completed_date: complete
@@ -103,7 +102,7 @@ export default function TaskInfo({navigation, route}) {
             }else{
                     taskData = {
                     status: stat,
-                    post_hours: {hoursWorked: hoursWorked},
+                    post_hours: hoursWorked,
                     start_date: stDate,
                     end_date: enDate,
                     completed_date: null
@@ -163,8 +162,6 @@ export default function TaskInfo({navigation, route}) {
 
 
     return (
-
-        
         <SafeAreaView style={general.container}>
             <Pressable onPress={goBack} style={general.returnBtn}>
                 <Ionicons name="arrow-back" size={24}  style={{marginRight: 15}} color="#84B026" />
@@ -172,31 +169,44 @@ export default function TaskInfo({navigation, route}) {
             </Pressable>
 
             <View style={[general.fullW, general.paddingH]}>
-                <Text style={general.whiteTxt}>Task Name: {task.name}</Text>
+                <Text style={[taskS.title, general.whiteTxt]}>{task.name}</Text>
                 <Text style={general.whiteTxt}>Task Description: {task.description}</Text>
 
-                <Text style={general.whiteTxt}>Assigned To:</Text>
-                <Text style={general.whiteTxt}>{task.assName}</Text>
+                <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Assigned To:</Text>
+                <Text style={general.whiteTxt}>{task.assigned_to.name}</Text>
 
-                <Text style={general.whiteTxt}>Start Date:</Text>
-                <Text style={general.whiteTxt}>{formatDate(task.start_date)}</Text>
-                
-                <Text style={general.whiteTxt}>Due Date:</Text>
-                <Text style={general.whiteTxt}>{formatDate(task.end_date)}</Text>
+                <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Status:</Text>
+                <Text style={general.whiteTxt}>{task.status}</Text>
 
-                {/* <Text style={general.whiteTxt}>Created By:</Text>
-                <Text style={general.whiteTxt}>{task.created_by}</Text>*/}
-                
+                <View style={[general.flexRow, { paddingVertical: 10, justifyContent: 'space-between' } ]}>
+                    <View>
+                        <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Start Date:</Text>
+                        <Text style={general.whiteTxt}>{formatDate(task.start_date)}</Text>
+                    </View>
+
+                    <View>
+                        <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Due Date:</Text>
+                        <Text style={general.whiteTxt}>{formatDate(task.end_date)}</Text>
+                    </View>
+
+                    <View style={{ opacity: task.completed_date ? 1 : 0 }}>
+                        <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Completed Date:</Text>
+                        <Text style={general.whiteTxt}>{formatDate(task.completed_date)}</Text>
+                    </View>
+                </View>
+
+                <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Created By:</Text>
+                <Text style={general.whiteTxt}>{task.created_by}</Text>
+
+                <Text style={[general.greenTxt, general.boldTxt, taskS.label]}>Task Cost:</Text>
+                <Text style={general.whiteTxt}>${task.pay_rate * task.post_hours}</Text>
           </View>
 
-                
-                
-
-
-                {userLoggedIn._id != task.assigned_to.id ? null:
-
-                <View style={[general.fullW, general.paddingH]}>
-                <Text style={general.whiteTxt}>Edit the status of the task:</Text>
+        {userLoggedIn._id != task.assigned_to.id ? <></> :
+            <View style={[general.fullW, general.paddingH, {marginTop: 15}]}>
+                <Text style={taskS.formTitle}>Update your task:</Text>
+               
+                <Text style={[general.greenTxt, general.boldTxt]}>Edit the status of the task:</Text>
 
                 <DropDownPicker
                 open={open}
@@ -209,22 +219,14 @@ export default function TaskInfo({navigation, route}) {
                 setValue={setValue}
                 setItems={setItems} />
 
-                <Text style={general.whiteTxt}>Enter how many hours you worked in this task:</Text>
+                <Text style={[general.greenTxt, general.boldTxt, {marginBottom: 5} ]}>Enter how many hours you worked in this task:</Text>
                 <TextInput style={general.inputs} defaultValue={String(hoursWorked)} placeholder='Hours' onChangeText={text => setHoursWorked(text)} keyboardType='numeric'/>
 
                 <Pressable style={[general.btn, general.btnGreen]} onPress={() => handleUpdate()}>
                 <Text style={general.btnTxt}>Update Task</Text>
                 </Pressable>
-                </View>
-
-
-                }
-               
-
-                
-               
-
-           
+            </View>
+        }
         </SafeAreaView>
     );
 }
