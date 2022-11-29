@@ -27,7 +27,7 @@ const dataSchema = new mongoose.Schema({
     },
     post_hours: {
         require: false,
-        type: Map
+        type: Number
     },
     start_date: {
         require: true,

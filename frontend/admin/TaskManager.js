@@ -29,6 +29,10 @@ export default function TaskManager({navigation, route}) {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
 
+  const [open2, setOpen2] = useState(false);
+  const [value2, setValue2] = useState(null);
+  const [items2, setItems2] = useState([]);
+
   const goBack = () => {
     navigation.goBack()
   }
@@ -72,6 +76,20 @@ export default function TaskManager({navigation, route}) {
               setItems(temp)
           });
   }
+
+  const getTasksDB = () => {
+    fetch(fetchLink + '/api/task/'+project._id, {           //THIS IS FOR ANDROID EMULATOR! MIGHT BE DIFFERENT FOR OTHER DEVICES.
+        method: 'GET',
+        }).then(res => res.json()).then(data => {
+          console.log(data)
+          let temp = []
+          for(let i=0;i<data.length;i++){
+            temp.push({label: data[i].name, value: i, id: data[i]._id})
+          }
+          console.log(temp)
+            setItems2(temp)
+        });
+}
 
   const handleCreate = () => {
     if(name == '' || desc == '' || starDate == 'YYYY-MM-DD' || endDate == 'YYYY-MM-DD' || rate == 0){
@@ -200,6 +218,7 @@ export default function TaskManager({navigation, route}) {
 
     useEffect(() => {
       getUsersDB()
+      getTasksDB()
     }, []);
 
   useEffect(() => {
@@ -240,6 +259,18 @@ export default function TaskManager({navigation, route}) {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems} />
+
+      <Text style={general.whiteTxt}>Task Prerequisite:</Text>
+        <DropDownPicker
+        open={open2}
+        value={value2}
+        items={items2}
+        style={{ marginBottom: 15, marginTop: 5 }}
+        placeholder="None"
+        listMode="SCROLLVIEW"
+        setOpen={setOpen2}
+        setValue={setValue2}
+        setItems={setItems2} />
 
         <Text style={[general.whiteTxt, {marginBottom: 5}]}>Hourly Rate:</Text>
         <TextInput style={general.inputs} value={String(rate)} placeholder='$0.00' onChangeText={text => setRate(text)}/>

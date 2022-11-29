@@ -23,7 +23,7 @@ export default {
             status: req.body.status,
             assigned_to: req.body.assigned_to,
             pay_rate: req.body.pay_rate,
-            post_hours: null,
+            post_hours: 0,
             start_date: tempStart,
             end_date: tempEnd,
             completed_date: null,
