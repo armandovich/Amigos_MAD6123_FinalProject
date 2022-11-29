@@ -253,7 +253,7 @@ export default function TaskManager({navigation, route}) {
         open={open}
         value={value}
         items={items}
-        style={{ marginBottom: 15, marginTop: 5 }}
+        style={{ marginBottom: 15, marginTop: 5, zIndex: 10 }}
         placeholder="None"
         listMode="SCROLLVIEW"
         setOpen={setOpen}
@@ -265,7 +265,7 @@ export default function TaskManager({navigation, route}) {
         open={open2}
         value={value2}
         items={items2}
-        style={{ marginBottom: 15, marginTop: 5 }}
+        style={{ marginBottom: 15, marginTop: 5, zIndex: 1 }}
         placeholder="None"
         listMode="SCROLLVIEW"
         setOpen={setOpen2}
