@@ -250,16 +250,8 @@ export default function Tasks({navigation, route}) {
     getTasksDB()
   }, []);
 
-  function getName(str){
-    let myArr = str.split("\"")
-    console.log(myArr)
-    return myArr[7]
-  }
-
-  if(userLoggedIn.admin){
-
-  }else{
-
+  const formatDate = (value) => {
+    return new Date(value).toISOString().slice(0, 10);
   }
 
   return (
@@ -324,7 +316,7 @@ export default function Tasks({navigation, route}) {
             </View>
             <View style={[general.fullW, general.flexRow]}>
               <Text style={[general.whiteTxt, general.boldTxt]}>Due Date: </Text>
-              <Text style={general.greenTxt}>{item.end_date}</Text>
+              <Text style={general.greenTxt}>{formatDate(item.end_date)}</Text>
             </View>
           </View>
 
